@@ -1,366 +1,542 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>iConfam — Independent Verification Before Your Money Moves</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --paper:#F5EFE1;
-    --paper-line:#DCD2B8;
-    --ink:#1E2A38;
-    --ink-soft:#3C4A5A;
-    --stamp:#9C3B2C;
-    --stamp-dark:#7C2E22;
-    --soil:#6B5A3E;
-    --verified:#3F6B4A;
-    --white:#FFFDF8;
-  }
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
-  body{
-    background:var(--paper);
-    color:var(--ink);
-    font-family:'IBM Plex Sans', sans-serif;
-    line-height:1.5;
-    -webkit-font-smoothing:antialiased;
-  }
-  .wrap{max-width:760px;margin:0 auto;padding:0 24px;}
-  a{color:inherit;}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iConfam — Independent Verification Before Your Money Moves</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --paper: #F5EFE1;
+      --paper-line: #DCD2B8;
+      --ink: #1E2A38;
+      --ink-soft: #3C4A5A;
+      --stamp: #9C3B2C;
+      --stamp-dark: #7C2E22;
+      --soil: #6B5A3E;
+      --verified: #3F6B4A;
+      --white: #FFFDF8;
+    }
 
-  /* subtle paper texture via layered gradients */
-  body{
-    background-image:
-      radial-gradient(circle at 15% 8%, rgba(0,0,0,0.02) 0%, transparent 40%),
-      radial-gradient(circle at 85% 92%, rgba(0,0,0,0.02) 0%, transparent 40%);
-  }
+    * {
+      box-sizing: border-box;
+    }
 
-  header{padding:28px 0 0;}
-  .wordmark{
-    font-family:'Fraunces', serif;
-    font-weight:600;
-    font-size:22px;
-    letter-spacing:0.01em;
-  }
-  .wordmark span{color:var(--stamp);}
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
 
-  .hero{padding:56px 0 40px; border-bottom:1px solid var(--paper-line);}
-  .hero-label{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12.5px;
-    color:var(--soil);
-    margin-bottom:18px;
-  }
-  h1{
-    font-family:'Fraunces', serif;
-    font-weight:500;
-    font-size:44px;
-    line-height:1.12;
-    margin:0 0 22px;
-    max-width:12ch;
-    color:var(--ink);
-  }
-  .lede{
-    font-size:18px;
-    color:var(--ink-soft);
-    max-width:46ch;
-    margin:0 0 30px;
-  }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'IBM Plex Sans', sans-serif;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
 
-  /* stamp graphic — the one bold element */
-  .stamp{
-    position:relative;
-    width:132px;height:132px;
-    border:2.5px solid var(--stamp);
-    border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
-    transform:rotate(-9deg);
-    margin:8px 0 36px;
-    flex-shrink:0;
-  }
-  .stamp::before{
-    content:"";
-    position:absolute; inset:8px;
-    border:1px solid var(--stamp);
-    border-radius:50%;
-  }
-  .stamp-text{
-    font-family:'IBM Plex Mono', monospace;
-    color:var(--stamp);
-    text-align:center;
-    font-size:11px;
-    letter-spacing:0.14em;
-    line-height:1.6;
-  }
-  .stamp-text b{display:block;font-size:15px;letter-spacing:0.06em;}
+    .wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
 
-  .hero-row{display:flex; gap:32px; align-items:flex-start; flex-wrap:wrap;}
-  .hero-copy{flex:1; min-width:260px;}
+    a {
+      color: inherit;
+    }
 
-  .cta-row{display:flex; gap:12px; flex-wrap:wrap; margin-top:6px;}
-  .btn{
-    display:inline-block;
-    padding:13px 22px;
-    font-size:15px;
-    font-weight:500;
-    text-decoration:none;
-    border-radius:3px;
-    cursor:pointer;
-    border:1px solid transparent;
-  }
-  .btn-primary{background:var(--ink); color:var(--white);}
-  .btn-primary:hover{background:var(--ink-soft);}
-  .btn-secondary{background:transparent; color:var(--ink); border-color:var(--ink);}
-  .btn-secondary:hover{background:rgba(30,42,56,0.06);}
+    /* subtle paper texture via layered gradients */
+    body {
+      background-image:
+        radial-gradient(circle at 15% 8%, rgba(0, 0, 0, 0.02) 0%, transparent 40%),
+        radial-gradient(circle at 85% 92%, rgba(0, 0, 0, 0.02) 0%, transparent 40%);
+    }
 
-  section{padding:44px 0; border-bottom:1px solid var(--paper-line);}
-  h2{
-    font-family:'Fraunces', serif;
-    font-weight:500;
-    font-size:26px;
-    margin:0 0 26px;
-  }
+    header {
+      padding: 28px 0 0;
+    }
 
-  .ledger-row{
-    display:grid;
-    grid-template-columns:28px 1fr;
-    gap:16px;
-    padding:16px 0;
-    border-top:1px solid var(--paper-line);
-  }
-  .ledger-row:last-child{border-bottom:1px solid var(--paper-line);}
-  .ledger-num{
-    font-family:'IBM Plex Mono', monospace;
-    color:var(--soil);
-    font-size:13px;
-    padding-top:2px;
-  }
-  .ledger-title{font-weight:600; margin-bottom:4px;}
-  .ledger-desc{color:var(--ink-soft); font-size:15px; max-width:52ch;}
+    .wordmark {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 22px;
+      letter-spacing: 0.01em;
+    }
 
-  .verify-list{list-style:none; margin:0; padding:0;}
-  .verify-list li{
-    padding:14px 0;
-    border-top:1px solid var(--paper-line);
-    display:flex; justify-content:space-between; align-items:baseline; gap:16px;
-  }
-  .verify-list li:last-child{border-bottom:1px solid var(--paper-line);}
-  .verify-name{font-weight:600;}
-  .verify-detail{color:var(--ink-soft); font-size:14.5px; text-align:right;}
+    .wordmark span {
+      color: var(--stamp);
+    }
+
+    .hero {
+      padding: 56px 0 40px;
+      border-bottom: 1px solid var(--paper-line);
+    }
+
+    .hero-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12.5px;
+      color: var(--soil);
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-family: 'Fraunces', serif;
+      font-weight: 500;
+      font-size: 44px;
+      line-height: 1.12;
+      margin: 0 0 22px;
+      max-width: 12ch;
+      color: var(--ink);
+    }
+
+    .lede {
+      font-size: 18px;
+      color: var(--ink-soft);
+      max-width: 46ch;
+      margin: 0 0 30px;
+    }
+
+    /* stamp graphic — the one bold element */
+    .stamp {
+      position: relative;
+      width: 132px;
+      height: 132px;
+      border: 2.5px solid var(--stamp);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: rotate(-9deg);
+      margin: 8px 0 36px;
+      flex-shrink: 0;
+    }
+
+    .stamp::before {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border: 1px solid var(--stamp);
+      border-radius: 50%;
+    }
+
+    .stamp-text {
+      font-family: 'IBM Plex Mono', monospace;
+      color: var(--stamp);
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      line-height: 1.6;
+    }
+
+    .stamp-text b {
+      display: block;
+      font-size: 15px;
+      letter-spacing: 0.06em;
+    }
+
+    .hero-row {
+      display: flex;
+      gap: 32px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .hero-copy {
+      flex: 1;
+      min-width: 260px;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 13px 22px;
+      font-size: 15px;
+      font-weight: 500;
+      text-decoration: none;
+      border-radius: 3px;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--ink);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: var(--ink-soft);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--ink);
+      border-color: var(--ink);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(30, 42, 56, 0.06);
+    }
+
+    section {
+      padding: 44px 0;
+      border-bottom: 1px solid var(--paper-line);
+    }
+
+    h2 {
+      font-family: 'Fraunces', serif;
+      font-weight: 500;
+      font-size: 26px;
+      margin: 0 0 26px;
+    }
+
+    .ledger-row {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 16px;
+      padding: 16px 0;
+      border-top: 1px solid var(--paper-line);
+    }
+
+    .ledger-row:last-child {
+      border-bottom: 1px solid var(--paper-line);
+    }
+
+    .ledger-num {
+      font-family: 'IBM Plex Mono', monospace;
+      color: var(--soil);
+      font-size: 13px;
+      padding-top: 2px;
+    }
+
+    .ledger-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .ledger-desc {
+      color: var(--ink-soft);
+      font-size: 15px;
+      max-width: 52ch;
+    }
+
+    .verify-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .verify-list li {
+      padding: 14px 0;
+      border-top: 1px solid var(--paper-line);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+    }
+
+    .verify-list li:last-child {
+      border-bottom: 1px solid var(--paper-line);
+    }
+
+    .verify-name {
+      font-weight: 600;
+    }
+
+    .verify-detail {
+      color: var(--ink-soft);
+      font-size: 14.5px;
+      text-align: right;
+    }
 
 
-  /* form */
-  .form-card{
-    background:var(--white);
-    border:1px solid var(--paper-line);
-    border-radius:4px;
-    padding:32px;
-    margin-top:8px;
-  }
-  .field{margin-bottom:20px;}
-  label{
-    display:block;
-    font-size:13px;
-    font-weight:600;
-    margin-bottom:7px;
-    color:var(--ink-soft);
-  }
-  input, select, textarea{
-    width:100%;
-    padding:11px 13px;
-    font-family:'IBM Plex Sans', sans-serif;
-    font-size:15px;
-    border:1px solid var(--paper-line);
-    border-radius:3px;
-    background:var(--paper);
-    color:var(--ink);
-  }
-  input:focus, select:focus, textarea:focus{
-    outline:2px solid var(--stamp);
-    outline-offset:1px;
-  }
-  .field-row{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
-  @media (max-width:520px){ .field-row{grid-template-columns:1fr;} }
+    /* form */
+    .form-card {
+      background: var(--white);
+      border: 1px solid var(--paper-line);
+      border-radius: 4px;
+      padding: 32px;
+      margin-top: 8px;
+    }
 
-  .submit-btn{
-    width:100%;
-    padding:14px;
-    background:var(--stamp);
-    color:var(--white);
-    border:none;
-    border-radius:3px;
-    font-size:16px;
-    font-weight:600;
-    cursor:pointer;
-    font-family:'IBM Plex Sans', sans-serif;
-  }
-  .submit-btn:hover{background:var(--stamp-dark);}
-  .submit-btn:disabled{background:var(--soil); cursor:default;}
+    .field {
+      margin-bottom: 20px;
+    }
 
-  .form-note{font-size:13px; color:var(--soil); margin-top:14px; text-align:center;}
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 7px;
+      color: var(--ink-soft);
+    }
 
-  #successState{display:none; text-align:center; padding:20px 0;}
-  #successState .stamp{margin:0 auto 20px;}
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 11px 13px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 15px;
+      border: 1px solid var(--paper-line);
+      border-radius: 3px;
+      background: var(--paper);
+      color: var(--ink);
+    }
 
-  .whatsapp-alt{
-    text-align:center;
-    margin-top:22px;
-    padding-top:22px;
-    border-top:1px solid var(--paper-line);
-    font-size:14.5px;
-    color:var(--ink-soft);
-  }
-  .whatsapp-alt a{color:var(--stamp); font-weight:600; text-decoration:none;}
-  .whatsapp-alt a:hover{text-decoration:underline;}
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: 2px solid var(--stamp);
+      outline-offset: 1px;
+    }
 
-  footer{padding:32px 0 60px; font-size:13px; color:var(--soil);}
-</style>
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width:520px) {
+      .field-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--stamp);
+      color: var(--white);
+      border: none;
+      border-radius: 3px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'IBM Plex Sans', sans-serif;
+    }
+
+    .submit-btn:hover {
+      background: var(--stamp-dark);
+    }
+
+    .submit-btn:disabled {
+      background: var(--soil);
+      cursor: default;
+    }
+
+    .form-note {
+      font-size: 13px;
+      color: var(--soil);
+      margin-top: 14px;
+      text-align: center;
+    }
+
+    #successState {
+      display: none;
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    #successState .stamp {
+      margin: 0 auto 20px;
+    }
+
+    .whatsapp-alt {
+      text-align: center;
+      margin-top: 22px;
+      padding-top: 22px;
+      border-top: 1px solid var(--paper-line);
+      font-size: 14.5px;
+      color: var(--ink-soft);
+    }
+
+    .whatsapp-alt a {
+      color: var(--stamp);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .whatsapp-alt a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      padding: 32px 0 60px;
+      font-size: 13px;
+      color: var(--soil);
+    }
+  </style>
 </head>
+
 <body>
-<div class="wrap">
+  <div class="wrap">
 
-  <header>
-    <div class="wordmark"><span>i</span>Confam</div>
-  </header>
+    <header>
+      <div class="wordmark"><span>i</span>Confam</div>
+    </header>
 
-  <section class="hero" style="border-bottom:none;">
-    <div class="hero-row">
-      <div class="hero-copy">
-        <div class="hero-label">EARLY ACCESS — NIGERIA</div>
-        <h1>Independent verification before your money moves.</h1>
-        <p class="lede">Sending money home for a house, a build, or a farm? We send someone to check — before you pay, and at every milestone after. Not a fund. Not a developer. Just an independent set of eyes.</p>
-        <div class="cta-row">
-          <a href="#optin" class="btn btn-primary">Join early access</a>
-          <a href="#how" class="btn btn-secondary">How it works</a>
-        </div>
-      </div>
-      <div class="stamp">
-        <div class="stamp-text">I<br><b>CONFAM</b><br>GROUND CHECK</div>
-      </div>
-    </div>
-  </section>
-
-  <section id="how">
-    <h2>How it works</h2>
-    <div class="ledger-row">
-      <div class="ledger-num">01</div>
-      <div>
-        <div class="ledger-title">Tell us what you're funding</div>
-        <div class="ledger-desc">A property purchase, a build in progress, or a farm — anywhere in Nigeria.</div>
-      </div>
-    </div>
-    <div class="ledger-row">
-      <div class="ledger-num">02</div>
-      <div>
-        <div class="ledger-title">We send someone to look</div>
-        <div class="ledger-desc">A vetted local field agent visits, photographs, and documents the real, current state of things — no assumptions, no secondhand accounts.</div>
-      </div>
-    </div>
-    <div class="ledger-row">
-      <div class="ledger-num">03</div>
-      <div>
-        <div class="ledger-title">You get a plain report, before you pay</div>
-        <div class="ledger-desc">A clear write-up of what's true on the ground, delivered before your next payment goes out — not after.</div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <h2>What we verify</h2>
-    <ul class="verify-list">
-      <li><span class="verify-name">Property purchase</span><span class="verify-detail">Title, seller, physical condition</span></li>
-      <li><span class="verify-name">Ground-up build</span><span class="verify-detail">Foundation through finishing, milestone by milestone</span></li>
-      <li><span class="verify-name">Farm or agribusiness</span><span class="verify-detail">Land, crop, and harvest condition</span></li>
-    </ul>
-  </section>
-
-  <section id="optin" style="border-bottom:none;">
-    <h2>Get on the early access list</h2>
-    <p style="color:var(--ink-soft); margin-top:-14px; margin-bottom:24px; max-width:52ch;">
-      We're validating this with a small first group before opening it up. Tell us a bit about what you'd want checked, and we'll reach out directly — no mailing list, no spam.
-    </p>
-
-    <div class="form-card">
-      <form id="iconfamForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-        <div class="field-row">
-          <div class="field">
-            <label for="name">Full name</label>
-            <input type="text" id="name" name="name" required>
-          </div>
-          <div class="field">
-            <label for="location">Where you live now</label>
-            <input type="text" id="location" name="location" placeholder="e.g. Houston, TX" required>
+    <section class="hero" style="border-bottom:none;">
+      <div class="hero-row">
+        <div class="hero-copy">
+          <div class="hero-label">EARLY ACCESS — NIGERIA</div>
+          <h1>Independent verification before your money moves.</h1>
+          <p class="lede">Sending money home for a house, a build, or a farm? We send someone to check — before you pay,
+            and at every milestone after. Not a fund. Not a developer. Just an independent set of eyes.</p>
+          <div class="cta-row">
+            <a href="#optin" class="btn btn-primary">Join early access</a>
+            <a href="#how" class="btn btn-secondary">How it works</a>
           </div>
         </div>
-        <div class="field-row">
-          <div class="field">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
+        <div class="stamp">
+          <div class="stamp-text">I<br><b>CONFAM</b><br>GROUND CHECK</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how">
+      <h2>How it works</h2>
+      <div class="ledger-row">
+        <div class="ledger-num">01</div>
+        <div>
+          <div class="ledger-title">Tell us what you're funding</div>
+          <div class="ledger-desc">A property purchase, a build in progress, or a farm — anywhere in Nigeria.</div>
+        </div>
+      </div>
+      <div class="ledger-row">
+        <div class="ledger-num">02</div>
+        <div>
+          <div class="ledger-title">We send someone to look</div>
+          <div class="ledger-desc">A vetted local field agent visits, photographs, and documents the real, current state
+            of things — no assumptions, no secondhand accounts.</div>
+        </div>
+      </div>
+      <div class="ledger-row">
+        <div class="ledger-num">03</div>
+        <div>
+          <div class="ledger-title">You get a plain report, before you pay</div>
+          <div class="ledger-desc">A clear write-up of what's true on the ground, delivered before your next payment
+            goes out — not after.</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>What we verify</h2>
+      <ul class="verify-list">
+        <li><span class="verify-name">Property purchase</span><span class="verify-detail">Title, seller, physical
+            condition</span></li>
+        <li><span class="verify-name">Ground-up build</span><span class="verify-detail">Foundation through finishing,
+            milestone by milestone</span></li>
+        <li><span class="verify-name">Farm or agribusiness</span><span class="verify-detail">Land, crop, and harvest
+            condition</span></li>
+      </ul>
+    </section>
+
+    <section id="optin" style="border-bottom:none;">
+      <h2>Get on the early access list</h2>
+      <p style="color:var(--ink-soft); margin-top:-14px; margin-bottom:24px; max-width:52ch;">
+        We're validating this with a small first group before opening it up. Tell us a bit about what you'd want
+        checked, and we'll reach out directly — no mailing list, no spam.
+      </p>
+
+      <div class="form-card">
+        <form id="iconfamForm" action="https://formspree.io/f/mzeblpen" method="POST">
+          <div class="field-row">
+            <div class="field">
+              <label for="name">Full name</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+            <div class="field">
+              <label for="location">Where you live now</label>
+              <input type="text" id="location" name="location" placeholder="e.g. Houston, TX" required>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            <div class="field">
+              <label for="whatsapp">WhatsApp number</label>
+              <input type="tel" id="whatsapp" name="whatsapp" placeholder="+1 555 000 0000" required>
+            </div>
           </div>
           <div class="field">
-            <label for="whatsapp">WhatsApp number</label>
-            <input type="tel" id="whatsapp" name="whatsapp" placeholder="+1 555 000 0000" required>
+            <label for="interest">What would you want verified?</label>
+            <select id="interest" name="interest" required>
+              <option value="">Select one</option>
+              <option value="property">A property purchase</option>
+              <option value="build">A house I'm building</option>
+              <option value="farm">A farm or agribusiness</option>
+              <option value="unsure">Not sure yet — just interested</option>
+            </select>
           </div>
-        </div>
-        <div class="field">
-          <label for="interest">What would you want verified?</label>
-          <select id="interest" name="interest" required>
-            <option value="">Select one</option>
-            <option value="property">A property purchase</option>
-            <option value="build">A house I'm building</option>
-            <option value="farm">A farm or agribusiness</option>
-            <option value="unsure">Not sure yet — just interested</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="message">Anything specific you're worried about? (optional)</label>
-          <textarea id="message" name="message" rows="3" placeholder="e.g. I don't fully trust the person currently overseeing my build"></textarea>
-        </div>
-        <button type="submit" class="submit-btn" id="submitBtn">Join early access</button>
-      </form>
+          <div class="field">
+            <label for="message">Anything specific you're worried about? (optional)</label>
+            <textarea id="message" name="message" rows="3"
+              placeholder="e.g. I don't fully trust the person currently overseeing my build"></textarea>
+          </div>
+          <button type="submit" class="submit-btn" id="submitBtn">Join early access</button>
+        </form>
 
-      <div id="successState">
-        <div class="stamp"><div class="stamp-text">I<br><b>CONFAM</b><br>GROUND CHECK</div></div>
-        <h2 style="margin-bottom:10px;">You're on the list.</h2>
-        <p style="color:var(--ink-soft);">We'll reach out on WhatsApp within a couple of days to talk through what you need checked.</p>
+        <div id="successState">
+          <div class="stamp">
+            <div class="stamp-text">I<br><b>CONFAM</b><br>GROUND CHECK</div>
+          </div>
+          <h2 style="margin-bottom:10px;">You're on the list.</h2>
+          <p style="color:var(--ink-soft);">We'll reach out on WhatsApp within a couple of days to talk through what you
+            need checked.</p>
+        </div>
+
+        <div class="whatsapp-alt">
+          Prefer to just talk? <a
+            href="https://wa.me/12816704862?text=Hi%2C%20I%27m%20interested%20in%20iConfam%20verification"
+            target="_blank">Message us on WhatsApp instead →</a>
+        </div>
       </div>
+    </section>
 
-      <div class="whatsapp-alt">
-        Prefer to just talk? <a href="https://wa.me/1XXXXXXXXXX?text=Hi%2C%20I%27m%20interested%20in%20iConfam%20verification" target="_blank">Message us on WhatsApp instead →</a>
-      </div>
-    </div>
-  </section>
+    <footer>
+      iConfam is an independent verification service. We do not buy, sell, build, or invest in property, farms, or
+      agribusiness — and we never hold your money.
+    </footer>
 
-  <footer>
-    iConfam is an independent verification service. We do not buy, sell, build, or invest in property, farms, or agribusiness — and we never hold your money.
-  </footer>
+  </div>
 
-</div>
-
-<script>
-  const form = document.getElementById('iconfamForm');
-  const submitBtn = document.getElementById('submitBtn');
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending…';
-    fetch(form.action, {
-      method: 'POST',
-      body: new FormData(form),
-      headers: { 'Accept': 'application/json' }
-    }).then(response => {
-      form.style.display = 'none';
-      document.getElementById('successState').style.display = 'block';
-    }).catch(() => {
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Join early access';
-      alert('Something went wrong — please try the WhatsApp link below instead.');
+  <script>
+    const form = document.getElementById('iconfamForm');
+    const submitBtn = document.getElementById('submitBtn');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      }).then(response => {
+        form.style.display = 'none';
+        document.getElementById('successState').style.display = 'block';
+      }).catch(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Join early access';
+        alert('Something went wrong — please try the WhatsApp link below instead.');
+      });
     });
-  });
-</script>
+  </script>
 
 </body>
+
 </html>
