@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script>document.documentElement.classList.add('js-ready');</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light only">
+  <meta name="theme-color" content="#F5EFE1">
+  <title>iConfam — Independent Verification Before Your Money Moves</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --paper: #F5EFE1;
+      --paper-line: #DCD2B8;
+      --ink: #1E2A38;
+      --ink-soft: #3C4A5A;
+      --stamp: #9C3B2C;
+      --stamp-dark: #7C2E22;
+      --soil: #6B5A3E;
+      --verified: #3F6B4A;
+      --white: #FFFDF8;
+      color-scheme: light;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'IBM Plex Sans', sans-serif;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    /* subtle paper texture via layered gradients */
+    body {
+      background-image:
+        radial-gradient(circle at 15% 8%, rgba(0, 0, 0, 0.02) 0%, transparent 40%),
+        radial-gradient(circle at 85% 92%, rgba(0, 0, 0, 0.02) 0%, transparent 40%);
+    }
+
+    header {
+      padding: 28px 0 0;
+    }
+
+    .wordmark {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 22px;
+      letter-spacing: 0.01em;
+    }
+
+    .wordmark span {
+      color: var(--stamp);
+    }
+
+    .hero {
+      padding: 56px 0 40px;
+      border-bottom: 1px solid var(--paper-line);
+    }
+
+    .hero-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12.5px;
+      color: var(--soil);
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-family: 'Fraunces', serif;
+      font-weight: 500;
+      font-size: 44px;
+      line-height: 1.12;
+      margin: 0 0 22px;
+      max-width: 12ch;
+      color: var(--ink);
+    }
+
+    .lede {
+      font-size: 18px;
+      color: var(--ink-soft);
+      max-width: 46ch;
+      margin: 0 0 30px;
+    }
+
+    /* stamp graphic — the one bold element */
+    @keyframes stampFloat {
+
+      0%,
+      100% {
+        transform: rotate(-9deg) translateY(0);
+      }
+
+      50% {
+        transform: rotate(-6deg) translateY(-4px);
+      }
+    }
+
+    .stamp {
+      position: relative;
+      width: 132px;
+      height: 132px;
+      border: 2.5px solid var(--stamp);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: rotate(-9deg);
+      margin: 8px 0 36px;
+      flex-shrink: 0;
+      filter: drop-shadow(0 6px 14px rgba(156, 59, 44, 0.22));
+      animation: stampFloat 7s ease-in-out infinite;
+    }
+
+    .stamp::before {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border: 1px solid var(--stamp);
+      border-radius: 50%;
+    }
+
+    .stamp-text {
+      font-family: 'IBM Plex Mono', monospace;
+      color: var(--stamp);
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      line-height: 1.6;
+    }
+
+    .stamp-text b {
+      display: block;
+      font-size: 15px;
+      letter-spacing: 0.06em;
+    }
+
+    .hero-row {
+      display: flex;
+      gap: 32px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .hero-copy {
+      flex: 1;
+      min-width: 260px;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 15px 26px;
+      font-size: 15.5px;
+      font-weight: 600;
+      font-family: 'IBM Plex Sans', sans-serif;
+      text-decoration: none;
+      border-radius: 4px;
+      cursor: pointer;
+      border: 1.5px solid transparent;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease, color 0.18s ease;
+    }
+
+    .btn-arrow {
+      transition: transform 0.18s ease;
+    }
+
+    .btn:hover .btn-arrow {
+      transform: translateX(3px);
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .btn-primary {
+      background: var(--stamp);
+      color: var(--white);
+      box-shadow: 0 4px 14px rgba(156, 59, 44, 0.32);
+    }
+
+    .btn-primary:hover {
+      background: var(--stamp-dark);
+      box-shadow: 0 6px 18px rgba(156, 59, 44, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 8px rgba(156, 59, 44, 0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--ink);
+      border-color: var(--ink);
+    }
+
+    .btn-secondary:hover {
+      background: var(--ink);
+      color: var(--white);
+      transform: translateY(-1px);
+    }
+
+    section {
+      padding: 44px 0;
+      border-bottom: 1px solid var(--paper-line);
+    }
+
+    h2 {
+      font-family: 'Fraunces', serif;
+      font-weight: 500;
+      font-size: 26px;
+      margin: 0 0 26px;
+    }
+
+    .ledger-row {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 16px;
+      padding: 16px 0;
+      border-top: 1px solid var(--paper-line);
+    }
+
+    .ledger-row:last-child {
+      border-bottom: 1px solid var(--paper-line);
+    }
+
+    .ledger-num {
+      font-family: 'IBM Plex Mono', monospace;
+      color: var(--soil);
+      font-size: 13px;
+      padding-top: 2px;
+    }
+
+    .ledger-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .ledger-desc {
+      color: var(--ink-soft);
+      font-size: 15px;
+      max-width: 52ch;
+    }
+
+    .verify-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .verify-list li {
+      padding: 14px 0;
+      border-top: 1px solid var(--paper-line);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+    }
+
+    .verify-list li:last-child {
+      border-bottom: 1px solid var(--paper-line);
+    }
+
+    .verify-name {
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .verify-detail {
+      color: var(--ink-soft);
+      font-size: 14.5px;
+      text-align: right;
+    }
+
+    @media (max-width:520px) {
+      .verify-list li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+      }
+
+      .verify-detail {
+        text-align: left;
+      }
+    }
+
+
+    /* form */
+    .form-card {
+      background: var(--white);
+      border: 1px solid var(--paper-line);
+      border-radius: 6px;
+      padding: 32px;
+      margin-top: 8px;
+      box-shadow: 0 2px 10px rgba(30, 42, 56, 0.05);
+      transition: box-shadow 0.25s ease;
+    }
+
+    .form-card:focus-within {
+      box-shadow: 0 8px 24px rgba(30, 42, 56, 0.1);
+    }
+
+    .field {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 7px;
+      color: var(--ink-soft);
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 11px 13px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 15px;
+      border: 1px solid var(--paper-line);
+      border-radius: 4px;
+      background: var(--paper);
+      color: var(--ink);
+      transition: border-color 0.18s ease, outline-color 0.18s ease;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: 2px solid var(--stamp);
+      outline-offset: 1px;
+    }
+
+    input.invalid {
+      border-color: var(--stamp);
+      outline: none;
+    }
+
+    .field-hint {
+      font-size: 12.5px;
+      color: var(--soil);
+      margin-top: 6px;
+    }
+
+    .field-error {
+      font-size: 12.5px;
+      color: var(--stamp-dark);
+      margin-top: 6px;
+      display: none;
+    }
+
+    .field-error.show {
+      display: block;
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width:520px) {
+      .field-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 15px;
+      background: var(--stamp);
+      color: var(--white);
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'IBM Plex Sans', sans-serif;
+      box-shadow: 0 4px 14px rgba(156, 59, 44, 0.28);
+      transition: background-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .submit-btn:hover {
+      background: var(--stamp-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(156, 59, 44, 0.36);
+    }
+
+    .submit-btn:active {
+      transform: translateY(1px);
+    }
+
+    .submit-btn:disabled {
+      background: var(--soil);
+      cursor: default;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .form-note {
+      font-size: 13px;
+      color: var(--soil);
+      margin-top: 14px;
+      text-align: center;
+    }
+
+    #successState {
+      display: none;
+      text-align: center;
+      padding: 20px 0;
+      opacity: 0;
+      transform: translateY(10px) scale(0.98);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    #successState.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    #successState .stamp {
+      margin: 0 auto 20px;
+    }
+
+    .whatsapp-alt {
+      text-align: center;
+      margin-top: 22px;
+      padding-top: 22px;
+      border-top: 1px solid var(--paper-line);
+      font-size: 14.5px;
+      color: var(--ink-soft);
+    }
+
+    .whatsapp-alt a {
+      color: var(--stamp);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .whatsapp-alt a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      padding: 32px 0 60px;
+      font-size: 13px;
+      color: var(--soil);
+    }
+
+    /* scroll-reveal: sections fade and rise into place as the page scrolls.
+     Only hidden by default when JS is confirmed running (.js-ready on <html>) —
+     otherwise content stays fully visible, so nothing can get stuck invisible. */
+    .reveal {
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .js-ready .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+
+      .stamp {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <header>
+      <div class="wordmark"><span>i</span>Confam</div>
+    </header>
+
+    <section class="hero" style="border-bottom:none;">
+      <div class="hero-row">
+        <div class="hero-copy reveal">
+          <div class="hero-label">EARLY ACCESS — NIGERIA</div>
+          <h1>Independent verification before your money moves.</h1>
+          <p class="lede">Sending money home for a house, a build, or a farm? We send someone to check — before you pay,
+            and at every milestone after. Not a fund. Not a developer. Just an independent set of eyes.</p>
+          <div class="cta-row">
+            <a href="#optin" class="btn btn-primary">Join early access <span class="btn-arrow">→</span></a>
+            <a href="#how" class="btn btn-secondary">How it works</a>
+          </div>
+        </div>
+        <div class="stamp reveal" style="transition-delay:0.15s;">
+          <div class="stamp-text">I<br><b>CONFAM</b><br>GROUND CHECK</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how">
+      <h2>How it works</h2>
+      <div class="ledger-row reveal">
+        <div class="ledger-num">01</div>
+        <div>
+          <div class="ledger-title">Tell us what you're funding</div>
+          <div class="ledger-desc">A property purchase, a build in progress, or a farm — anywhere in Nigeria.</div>
+        </div>
+      </div>
+      <div class="ledger-row reveal" style="transition-delay:0.1s;">
+        <div class="ledger-num">02</div>
+        <div>
+          <div class="ledger-title">We send someone to look</div>
+          <div class="ledger-desc">A vetted local field agent visits, photographs, and documents the real, current state
+            of things — and for property or land, we also run the title and documents through a licensed surveyor or
+            lawyer we already work with. Not just a photo, a real check.</div>
+        </div>
+      </div>
+      <div class="ledger-row reveal" style="transition-delay:0.2s;">
+        <div class="ledger-num">03</div>
+        <div>
+          <div class="ledger-title">You get a plain report, before you pay</div>
+          <div class="ledger-desc">A clear write-up of what's true on the ground, delivered before your next payment
+            goes out — not after.</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>What we verify</h2>
+      <ul class="verify-list">
+        <li class="reveal"><span class="verify-name">Property purchase</span><span class="verify-detail">Title search,
+            seller/developer legitimacy, physical site condition</span></li>
+        <li class="reveal" style="transition-delay:0.1s;"><span class="verify-name">Ground-up build</span><span
+            class="verify-detail">Survey plan check, milestone sign-off, foundation through finishing</span></li>
+        <li class="reveal" style="transition-delay:0.2s;"><span class="verify-name">Farm or agribusiness</span><span
+            class="verify-detail">Land, crop, and harvest condition</span></li>
+      </ul>
+    </section>
+
+    <section id="optin" style="border-bottom:none;">
+      <h2>Get on the early access list</h2>
+      <p style="color:var(--ink-soft); margin-top:-14px; margin-bottom:24px; max-width:52ch;">
+        We're validating this with a small first group before opening it up. Tell us a bit about what you'd want
+        checked, and we'll reach out directly — no mailing list, no spam.
+      </p>
+
+      <div class="form-card reveal">
+        <form id="iconfamForm" action="https://formspree.io/f/mzeblpen" method="POST">
+          <div class="field-row">
+            <div class="field">
+              <label for="name">Full name</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+            <div class="field">
+              <label for="location">Where you live now</label>
+              <input type="text" id="location" name="location" placeholder="e.g. Houston, TX" required>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            <div class="field">
+              <label for="whatsapp">WhatsApp number</label>
+              <input type="tel" id="whatsapp" name="whatsapp" placeholder="+1 555 000 0000" inputmode="tel"
+                autocomplete="tel" maxlength="24" pattern="^\+?[0-9\s\-\(\)]{7,20}$"
+                title="Include your country code, e.g. +1 555 000 0000" required>
+              <div class="field-hint">Include your country code (e.g. +234, +1, +44)</div>
+              <div class="field-error" id="whatsappError"></div>
+            </div>
+          </div>
+          <div class="field">
+            <label for="interest">What would you want verified?</label>
+            <select id="interest" name="interest" required>
+              <option value="">Select one</option>
+              <option value="property">A property purchase</option>
+              <option value="build">A house I'm building</option>
+              <option value="farm">A farm or agribusiness</option>
+              <option value="unsure">Not sure yet — just interested</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="message">Anything specific you're worried about? (optional)</label>
+            <textarea id="message" name="message" rows="3"
+              placeholder="e.g. I don't fully trust the person currently overseeing my build"></textarea>
+          </div>
+          <button type="submit" class="submit-btn" id="submitBtn">Join early access</button>
+        </form>
+
+        <div id="successState">
+          <div class="stamp">
+            <div class="stamp-text">I<br><b>CONFAM</b><br>GROUND CHECK</div>
+          </div>
+          <h2 style="margin-bottom:10px;">You're on the list.</h2>
+          <p style="color:var(--ink-soft);">We'll reach out on WhatsApp within a couple of days to talk through what you
+            need checked.</p>
+        </div>
+
+        <div class="whatsapp-alt">
+          Prefer to just talk? <a
+            href="https://wa.me/12816704862?text=Hi%2C%20I%27m%20interested%20in%20iConfam%20verification"
+            target="_blank">Message us on WhatsApp instead →</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      iConfam is an independent verification service. We do not buy, sell, build, or invest in property, farms, or
+      agribusiness — and we never hold your money.
+    </footer>
+
+  </div>
+
+  <script>
+    const form = document.getElementById('iconfamForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const whatsappInput = document.getElementById('whatsapp');
+    const whatsappError = document.getElementById('whatsappError');
+
+    // Formats digits into readable groups as the person types, e.g.
+    // "15550000000" -> "+1 555 000 0000", "2348030000000" -> "+234 803 000 0000".
+    // Recognizes the three country codes we prompt for (+1, +44, +234); anything
+    // else still gets grouped in readable chunks even if we can't guess its shape.
+    function formatPhoneAsYouType(raw) {
+      const hasPlus = raw.trim().charAt(0) === '+';
+      const digits = raw.replace(/\D/g, '').slice(0, 15);
+      if (!digits) return hasPlus ? '+' : '';
+
+      let cc = '', rest = digits;
+      if (digits.length <= 11 && digits.startsWith('1')) { cc = '1'; rest = digits.slice(1); }
+      else if (digits.startsWith('44')) { cc = '44'; rest = digits.slice(2); }
+      else if (digits.startsWith('234')) { cc = '234'; rest = digits.slice(3); }
+
+      const groups = [];
+      let i = 0;
+      while (i < rest.length) {
+        const remaining = rest.length - i;
+        const size = remaining > 4 ? 3 : remaining;
+        groups.push(rest.slice(i, i + size));
+        i += size;
+      }
+
+      const prefix = cc ? ('+' + cc + ' ') : (hasPlus ? '+' : '');
+      return (prefix + groups.join(' ')).trim();
+    }
+
+    // Strips everything except digits and a single leading +, and checks
+    // the digit count sits inside the real-world range for a phone number
+    // (7 digits minimum for a short-country-code number, 15 max per the
+    // international E.164 standard).
+    function validateWhatsapp(raw) {
+      const trimmed = raw.trim();
+      const hasPlus = trimmed.startsWith('+');
+      const digitsOnly = trimmed.replace(/\D/g, '');
+      if (digitsOnly.length < 7) {
+        return { ok: false, message: 'That looks too short for a real phone number.' };
+      }
+      if (digitsOnly.length > 15) {
+        return { ok: false, message: 'That looks too long — check the number and country code.' };
+      }
+      return { ok: true, normalized: (hasPlus ? '+' : '+') + digitsOnly };
+    }
+
+    function showWhatsappError(message) {
+      whatsappInput.classList.add('invalid');
+      whatsappError.textContent = message;
+      whatsappError.classList.add('show');
+    }
+
+    function clearWhatsappError() {
+      whatsappInput.classList.remove('invalid');
+      whatsappError.classList.remove('show');
+      whatsappError.textContent = '';
+    }
+
+    whatsappInput.addEventListener('input', function () {
+      clearWhatsappError();
+      const cursorWasAtEnd = whatsappInput.selectionStart === whatsappInput.value.length;
+      whatsappInput.value = formatPhoneAsYouType(whatsappInput.value);
+      if (cursorWasAtEnd) {
+        whatsappInput.setSelectionRange(whatsappInput.value.length, whatsappInput.value.length);
+      }
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const result = validateWhatsapp(whatsappInput.value);
+      if (!result.ok) {
+        showWhatsappError(result.message);
+        whatsappInput.focus();
+        return;
+      }
+      clearWhatsappError();
+      whatsappInput.value = result.normalized; // send a clean, consistent format
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      }).then(response => {
+        form.style.display = 'none';
+        const successEl = document.getElementById('successState');
+        successEl.style.display = 'block';
+        // give the browser a frame to register display:block before animating in
+        requestAnimationFrame(() => requestAnimationFrame(() => successEl.classList.add('show')));
+      }).catch(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Join early access';
+        alert('Something went wrong — please try the WhatsApp link below instead.');
+      });
+    });
+
+    // Scroll-reveal: fade + rise each marked section into place as it enters view
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+      revealEls.forEach(el => revealObserver.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+    // Safety net: if anything is still hidden after 2.5s (slow device, a missed
+    // observer callback, etc.), force it visible rather than leave it blank.
+    setTimeout(() => {
+      document.querySelectorAll('.reveal:not(.visible)').forEach(el => el.classList.add('visible'));
+    }, 2500);
+  </script>
+
+</body>
+
+</html>
